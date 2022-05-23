@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Live RTSP HLS.JS</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<body>
+  
+  <!-- Use this if you only support Safari!!
+    <div id="player">
+        <video id="video" autoplay="true" controls="controls">
+            <source src="http://192.1xx.x.1xx:8080/playlist.m3u8" />
+            Your browser does not support HTML5 streaming!
+        </video>
+    </div>
+-->
+
+  <video id="video" autoplay="true" controls="controls" type='application/x-mpegURL'></video>
+  
+  <script>
+    if (Hls.isSupported()) {
+      var video = document.getElementById('video');
+      var hls = new Hls();
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+        console.log("video and hls.js are now bound together !");
+        hls.loadSource("http://192.5.5.2/live/tamansari.m3u8");
+        hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+        });
+      });
+    }
+  </script>
+</body>
+</html>
